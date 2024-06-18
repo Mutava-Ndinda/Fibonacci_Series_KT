@@ -1,12 +1,29 @@
 package com.akirachix.fibonacciseries
 
-class FibonacciRecyclerViewAdapter {
-    fun generatefibonacci(count:Int):List<Int>{
-        val fibonacciNumber= mutableListOf<Int>()
-        if(count>0)fibonacciNumber.add(0)
-        if(count>1)fibonacciNumber.add(1)
-        for (i in 2 until count){
-            val nextNumber= fibonacciNumber[i-1] +fibonacciNumber[i-2]
-        }
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+class FibonacciRecyclerViewAdapter (var numbers:List<Int>):RecyclerView.Adapter<NumbersViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumbersViewHolder {
+        val numberView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.fibinacci_series,parent,false)
+        return NumbersViewHolder(numberView)
     }
+
+    override fun onBindViewHolder(holder: NumbersViewHolder, position: Int) {
+        holder.tvNumber.text = numbers[position].toString()
+
+    }
+
+    override fun getItemCount(): Int {
+        return numbers.size
+    }
+
+}
+
+class NumbersViewHolder(numberView:View):RecyclerView.ViewHolder(numberView){
+    val tvNumber = numberView.findViewById<TextView>(R.id.tvNumber)
 }
